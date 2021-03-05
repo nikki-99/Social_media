@@ -1,4 +1,4 @@
 
 function renderModal() {
-  $(".ui..modal").modal("show");
+  $(".ui.basic.modal").modal("show");
 }
