@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+      <div class="ui cards">
+      <div class="card">
+        <div class="content">
+          <img class="ui small circular image" src="{{ image_file }}">
+          <div class="header">
+            {{ current_user.username }}
+          </div>
+          <!-- <div class="meta">
+            Friends of Veronika
+          </div> -->
+          <div class="description">
+            {{ current_user.email }}
+          </div>
+        </div>
+        
+      
+
+    
+        <form method="POST" action="" class="ui form" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <fieldset>
+                <legend>Account Info!!</legend>
+                <div class="field">
+                    {{ form.username.label }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                   
+                    <ul class="errors">
+                        {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+
+                    </ul>
+                  
+                   
+                   
+                    {% endif %}
+
+     
+                </div>
+                <div class="field">
+                    {{ form.email.label }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                   
+                    <ul class="errors">
+                        {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+
+                    </ul>
+                   
+                   
+                 
+                   
+                    {% endif %}
+                       
+                  
+                </div>
+                <div class="field">
+                    {{ form.pics.label }}
+                    {{ form.pics }}
+                    {% if form.pics.errors %}
+                    {% for error in form.pics.errors %}
+                    <li>{{ error }}</li><br>
+                    {% endfor %}
+                    {% endif %}
+
+                    </div>
+
+                <div >
+                  
+                <button class="ui positive basic button" type="submit">{{ form.submit }}</button>
+                </div>
+                </fieldset>
+              </form>
+    
+{% endblock %}

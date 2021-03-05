@@ -1,0 +1,110 @@
+
+    {% extends 'base.html' %}
+    {% block content %}
+        <div class="content-section">
+            <form method="POST" action="" class="ui form">
+                {{ form.hidden_tag() }}
+                
+                <fieldset>
+                    <legend>Join Today!!</legend>
+                    <div class="field">
+                        {{ form.username.label }}
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                       
+                        <ul class="errors">
+                            {% for error in form.username.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+
+                        </ul>
+                        {% else %}
+                      
+                       
+                        {% endif %}
+
+         
+                    </div>
+                    <div class="field">
+                        {{ form.email.label }}
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                       
+                        <ul class="errors">
+                            {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+
+                        </ul>
+                        {% else %}
+                       
+                        
+                       
+                        {% endif %}
+                           
+                      
+                    </div>
+                    <div class="field">
+                       
+                            {{ form.password.label }}
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                       
+                            <ul class="errors">
+                                {% for error in form.password.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+    
+                            </ul>
+                            {% else %}
+                            
+                           
+                            
+                           
+                            {% endif %}
+                            
+                      
+                    </div>
+                    <div class="field">
+                      
+                            {{ form.confirm_password.label }}
+                            {{ form.confirm_password }}
+
+                            {% if form.confirm_password.errors %}
+                       
+                            <ul class="errors">
+                                {% for error in form.confirm_password.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+    
+                            </ul>
+                            {% else %}
+                         
+                           
+                           
+                           
+                            {% endif %}
+                            
+                      
+                    </div>
+                    <div >
+                      
+                    <button class="ui positive basic button" type="submit">{{ form.submit }}</button>
+                    </div>
+                    </fieldset>
+                  </form>
+                  <div class="field">
+                      <small>Already Have An Account? <a class="ml-2" href="{{ url_for('login')}}">Sign In</a>
+            
+                      </small>
+                  </div>
+            
+                   
+                       
+                      
+
+                </fieldset>
+
+            </form>
+        </div>
+    {% endblock %}

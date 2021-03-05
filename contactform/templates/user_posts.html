@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+<h2 style="color: coral;">{{ posts.total }} - posts by {{ user.username }}</h2>
+</ul>
+    {% for post in posts.items %}
+    <ul style="border: 2px rgb(255, 255, 255);">
+     
+    <div class="ui feed">
+    <div class="event">
+      
+        <div class="label">
+          <img class="ui small circular image" src="{{ url_for('static', filename = 'profile/' + post.author.image_file) }}">
+        </div>
+     
+        <div class="content">
+          <div class="summary">
+            <a class="user" style="color: rgb(40, 102, 102);" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
+              {{ post.author.username }}
+            </a> 
+            <div class="date">
+              <small style="color: black;">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+          </div>
+          <div class="extra text">
+            <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
+            <p style="font-style: italic;">{{ post.content }}</p>
+          </div>
+         
+        </div>
+      </ul>
+          
+    {% endfor %}
+{% for page_num in posts.iter_pages(left_edge =1, right_edge=1, left_current =1,right_current =2) %}
+{% if page_num %}
+{% if posts.page == page_num %}
+
+<a href="{{ url_for('user_posts_info', username = user.username, page = page_num) }}"><button class="ui blue basic button">
+  {{ page_num }}
+</button>
+</a>
+{% else %}
+<a href="{{ url_for('user_posts_info', username = user.username, page = page_num) }}"><button class="ui green basic button">
+  {{ page_num }}
+</button>
+</a>
+{% endif %}
+{% else %}
+    ...
+{% endif %}
+
+
+{% endfor %}
+ 
+
+{% endblock %}
+
+

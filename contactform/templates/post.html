@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="ui feed">
+    <div class="event">
+      <div class="label">
+        <img class="ui small circular image" src="{{ url_for('static', filename = 'profile/' + post.author.image_file) }}">
+      </div>
+      <div class="content">
+        <div class="summary">
+          <a class="user" style="color: darkblue;" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
+            {{ post.author.username }}
+          </a> 
+          <div class="date">
+            <small style="color: black;">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+          </div>
+          {% if post.author == current_user %}
+          <div>
+              
+              <a class="ui positive basic button" href="{{ url_for('post_update',post_id = post.id) }}">Update</a>
+              <!-- <a class="ui negative basic button" href="#" onclick="return renderModal()">Delete</a> -->
+              <a class="ui negative basic button" href="{{ url_for('post_delete',post_id = post.id) }}">Delete</a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="extra text">
+          <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: darkred;">{{ post.title }}</a></h3>
+          <p style="font-style: italic;">{{ post.content }}</p>
+        </div>
+      </div>
+      <div class="ui basic modal" >
+        <div class="ui icon header">
+          <i class="archive icon"></i>
+          Delete Your Account
+        </div>
+        <div class="content">
+          <p>
+           Are you sure yiu want to delete your account?
+          </p>
+        </div>
+        <div class="actions">
+          <div class="ui red basic cancel inverted button">
+            <i class="remove icon"></i>
+            No
+          </div>
+          <div class="ui green ok inverted button">
+            <i class="checkmark icon"></i>
+            Yes
+          </div>
+          <form action="{{ url_for('post_delete', post_id = post.id) }}" method="POST">
+            <input class="ui negative basic button" type="submit" value="DElete">
+          </form>
+        </div>
+      </div>
+     
+    
+    
+{% endblock %}
