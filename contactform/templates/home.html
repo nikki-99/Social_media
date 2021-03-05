@@ -25,6 +25,13 @@
             <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
             <p style="font-style: italic;">{{ post.content }}</p>
           </div>
+   
+          <div class="meta">
+            <a class="like">
+              <i class="like icon"></i> 4 Likes
+            </a>
+          </div>
+          
          
         </div>
       </ul>
