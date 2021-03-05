@@ -18,8 +18,8 @@
           <div>
               
               <a class="ui positive basic button" href="{{ url_for('post_update',post_id = post.id) }}">Update</a>
-              <!-- <a class="ui negative basic button" href="#" onclick="return renderModal()">Delete</a> -->
-              <a class="ui negative basic button" href="{{ url_for('post_delete',post_id = post.id) }}">Delete</a>
+              <button class="ui negative basic button" href="#" onclick="return renderModal()">Delete</button>
+  
             </div>
           {% endif %}
         </div>
@@ -31,24 +31,26 @@
       <div class="ui basic modal" >
         <div class="ui icon header">
           <i class="archive icon"></i>
-          Delete Your Account
+          Delete Your Post
         </div>
         <div class="content">
           <p>
-           Are you sure yiu want to delete your account?
+           Are you sure yiu want to delete your Post?
           </p>
         </div>
         <div class="actions">
-          <div class="ui red basic cancel inverted button">
-            <i class="remove icon"></i>
-            No
-          </div>
-          <div class="ui green ok inverted button">
-            <i class="checkmark icon"></i>
-            Yes
-          </div>
+      
           <form action="{{ url_for('post_delete', post_id = post.id) }}" method="POST">
-            <input class="ui negative basic button" type="submit" value="Delete">
+            <div class="ui red basic cancel inverted button">
+              <i class="remove icon"></i>
+              No
+            </div>
+            <div>
+              <i class="checkmark icon"></i>
+              <input class="ui green ok inverted button" type="submit" value="Delete">
+              
+            </div>
+         
           </form>
         </div>
       </div>
