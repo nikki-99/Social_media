@@ -5,7 +5,7 @@ import secrets
 import os
 from PIL import Image
 
-from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm
+from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, EmptyForm
 from flask_login import login_user, current_user,login_required, logout_user
 from flask_mail import Message
 
@@ -222,3 +222,40 @@ def post_delete(post_id):
     db.session.commit()    
     flash(f'Your post has been deleted', 'success')
     return redirect(url_for('home'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'User': User, 'Post': Post}
+
+
+
+
+
+
+
+
+
+
+    
