@@ -5,7 +5,7 @@ import secrets
 import os
 from PIL import Image
 
-from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, CommentForm
+from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, CommentForm, DeleteForm
 from flask_login import login_user, current_user,login_required, logout_user
 from flask_mail import Message
 from datetime import datetime
@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 
-    
+@app.route('/')    
 @app.route('/home')
 def home():
     page = request.args.get('page', 1, type= int)
@@ -224,10 +224,12 @@ def post_delete(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
+    
     db.session.delete(post)
     db.session.commit()    
     flash(f'Your post has been deleted', 'success')
     return redirect(url_for('home'))
+
 
 @app.before_request
 def before_request():
@@ -288,6 +290,28 @@ def post_comment(post_id):
                 flash(f'Your comment has been posted!','success')
                 return redirect(url_for('post', post_id = post.id))
     return render_template('post_comment.html', title = 'Comment Post', form = form, post_id = post_id)    
+
+
+
+@app.route('/delete', methods = ['GET','POST'])
+@login_required
+def delete_account():
+    form = DeleteForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+
+            db.session.delete(current_user)
+            db.session.commit()
+            flash(f'Your account has been successfully deleted.','success')
+            return redirect(url_for('home'))
+    return render_template('delete_account.html',title = 'Delete Account',form = form)
+        
+
+
+
+    
+
+
 
 
 

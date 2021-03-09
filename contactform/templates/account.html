@@ -67,8 +67,18 @@
 
                 <div >
                   
-                <button class="ui positive basic button" type="submit">{{ form.submit }}</button>
+                <button class="ui mini blue  button" type="submit">{{ form.submit }}</button>
+              <div>
+                    <a href="{{ url_for('delete_account') }}"><small style="position: absolute; left: 59%;
+                     top: 93%;">Aren't you happy?</small></a>
+        
                 </div>
+                <img src="{{url_for('static', filename='/images/cry.svg')}}" style="height: 15%;
+                    width: 15%;
+                    position: absolute;
+                    left: 67%;
+                    top: 80%;">
+            </div>
                 </fieldset>
               </form>
     

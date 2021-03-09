@@ -16,6 +16,11 @@ db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
 db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+# acnt_delete = db.Table('acnt_delete',
+# db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+# db.Column('comment_id', db.Integer, db.ForeignKey('comment.id'))
+# )
+
 
 # UserMixin-a class for all 4 functions..like get _id, is_authenticated
 
@@ -26,7 +31,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(50), nullable = False, unique = True)
     image_file =db.Column(db.String(20), nullable = False, default = 'default.jpg')
     password = db.Column(db.String(60), nullable = False)
-    posts = db.relationship("Post", backref ='author', lazy = True)
+    posts = db.relationship("Post", backref ='author', lazy = True,cascade="all,delete")
+    # comments_by_user = db.relationship("Comment", backref ='author', lazy = True,cascade="all,delete")
     last_seen = db.Column(db.DateTime, default = datetime.utcnow)
     followed = db.relationship(
         'User', secondary = followers,
@@ -90,7 +96,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default = datetime.utcnow)
     content = db.Column(db.Text, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    comments = db.relationship('Comment', backref = 'article', lazy = True)
+    comments = db.relationship('Comment', backref = 'article', lazy = True, cascade="all,delete")
 
 
   
@@ -107,6 +113,7 @@ class Comment(db.Model):
     body = db.Column(db.String(60), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'),nullable = False)
+    # user_comment_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable = False)
     
 
 

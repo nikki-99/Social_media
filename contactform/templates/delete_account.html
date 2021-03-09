@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content-section">
+    <form method="POST" action="" class="ui form">
+        {{ form.hidden_tag() }}
+        
+        <fieldset style="width: 50%; position: inherit; left: 25%;box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);">
+            <img src="{{url_for('static', filename='/images/delete.svg')}}" style="height: 48%;
+                  width: 25%;
+                  position: absolute;
+                  left: 64%;
+                  top: 53%;" />
+            <h2 style="color: darkgreen; text-align: center; ">We all will miss you!!</h2>
+           
+        <div class="field">
+          
+      <br><br><br>
+            <button class="ui  button" style="background-color: bisque; margin: 10%;" type="delete">{{ form.submit }}Delete</button>
+        </div>
+        </fieldset>
+{% endblock %}

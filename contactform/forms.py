@@ -65,7 +65,7 @@ class PostForm(FlaskForm):
 class ResetForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(), Email()])
     
-    submit = SubmitField('Reqest Password Reset')
+    submit = SubmitField('Reset')
     def validate_email(self, email):
         user = User.query.filter_by(email= email.data).first()
         if user is None:
@@ -82,3 +82,6 @@ class CommentForm(FlaskForm):
     commented_user = StringField('Give your Name', validators=[DataRequired()])
     body = TextAreaField('Reply', validators=[DataRequired()])
     submit = SubmitField("Post")
+
+class DeleteForm(FlaskForm):
+    delete = SubmitField('Delete')    
