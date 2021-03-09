@@ -2,51 +2,70 @@
 
 {% block content %}
 
+
     {% for post in posts.items %}
-    <ul style="border: 2px rgb(255, 255, 255);">
+ 
+
+
+
+
+
+
+    <ul style="border: 2px rgba(240, 12, 12, 0.062);">
      
     <div class="ui feed">
-    <div class="event">
-      
-        <div class="label">
-          <img class="ui small circular image" src="{{ url_for('static', filename = 'profile/' + post.author.image_file) }}">
-        </div>
+    <div class="event" style="display: flex; flex-direction: column; align-items: center;">
+      <p class="post1" style=" height: 120px;
+width: 500px;
+border-radius: 15px;
+position: relative;
+margin-bottom: 7vh;
+background: linear-gradient(45deg, white,rgb(0 0 242));
+pointer-events: all;box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);">
+
+        <!-- <div class="label"> -->
+          <img class="ui mini circular image" src="{{ url_for('static', filename = 'profile/' + post.author.image_file) }}">
+        <!-- </div> -->
      
-        <div class="content">
-          <div class="summary">
-            <a class="user" style="color: rgb(40, 102, 102);" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
-              {{ post.author.username }}
+        <!-- <div class="content">
+          <div class="summary"> -->
+            <a class="user" style="color: rgb(3, 95, 95); font-size: 20px; position: absolute;" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
+              <b>{{ post.author.username }}</b>
             </a> 
-            <div class="date">
-              <small style="color: black;">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
-          </div>
-          <div class="extra text">
-            <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
-            <p style="font-style: italic;">{{ post.content }}</p>
-          </div>
+            <!-- <div class="date"> -->
+              <small style="color: black; position: absolute; left: 83%; top: 14%;">{{ moment(post.date_posted).format("MMMM Do, YY") }}</small>
+            <!-- </div>
+          </div> -->
+          <!-- <div class="extra text"> -->
+            <a style="position: absolute; top: 60%; left: 37%; color: black;" href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(16, 1, 54);"><b>{{ post.title }}</b></a>
+            
+          <!-- </div> -->
    
-          <div class="meta">
-            <a class="like">
-              <i class="like icon"></i> 3 Likes
-            </a>
-          </div>
+        </p> 
           
          
-        </div>
+        
       </ul>
           
     {% endfor %}
+
+
+    
+
+
+
+
+
 {% for page_num in posts.iter_pages(left_edge =1, right_edge=1, left_current =1,right_current =2) %}
 {% if page_num %}
 {% if posts.page == page_num %}
 
-<a href="{{ url_for('home',page = page_num) }}"><button class="ui blue basic button">
+<a href="{{ url_for('home',page = page_num) }}"><button class="ui green button">
   {{ page_num }}
 </button>
 </a>
 {% else %}
-<a href="{{ url_for('home',page = page_num) }}"><button class="ui green basic button">
+<a href="{{ url_for('home',page = page_num) }}"><button class="ui blue basic button">
   {{ page_num }}
 </button>
 </a>
@@ -57,6 +76,7 @@
 
 
 {% endfor %}
+
  
 
 {% endblock %}

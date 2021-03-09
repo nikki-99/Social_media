@@ -7,13 +7,14 @@
     <title>Blog</title>
     {% endif %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/blog.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    
   </head>
 <body>
   
-        <div class="ui inverted menu">
+        <div class="ui light green inverted menu">
            
         <a class="active item" href="{{ url_for('home')}}">
           Home
@@ -23,6 +24,10 @@
         </a>
        
         <div class="right menu">
+       
+            <!-- <input type="text" placeholder="Search...">
+            <i class="search icon"></i> -->
+  
           {% if current_user.is_authenticated %}
           <a class="item" href="{{ url_for('new_post')}}">
             Make Posts
@@ -47,7 +52,7 @@
       </div>
     <div>
 
-        {% with messages = get_flashed_messages(with_categories = true) %}
+       {% with messages = get_flashed_messages(with_categories = true) %}
         {% if messages %}
         <ul class=flashes>
             {% for category, message in messages %}
@@ -57,14 +62,19 @@
             {% endfor %}
             </ul>
         {% endif %}
-        {% endwith %}
+        {% endwith %} 
    
    
     {% block content %}
     {% endblock %}
     </div>
    
-  
+    {% block scripts %}
+    
+    {{ moment.include_moment() }}
+    {% endblock %}
+ 
+    
     
      <script src = "{{ url_for('static', filename='js/app.js') }}"></script>
   </body>

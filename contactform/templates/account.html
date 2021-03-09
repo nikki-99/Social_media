@@ -1,29 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-      <div class="ui cards">
+      <div class="ui cards" style="position: absolute;left: 40%; box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);">
       <div class="card">
         <div class="content">
           <img class="ui small circular image" src="{{ image_file }}">
-          <div class="header">
-            {{ current_user.username }}
-          </div>
-          <!-- <div class="meta">
-            Friends of Veronika
-          </div> -->
-          <div class="description">
-            {{ current_user.email }}
-          </div>
+          <br>
+          <p>{{ current_user.followers.count() }} followers, {{ current_user.followed.count() }} following.</p>
         </div>
         
       
-
+   <h2 style="color: darkgreen; text-align: center;">Account Info</h2>
     
         <form method="POST" action="" class="ui form" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             
             <fieldset>
-                <legend>Account Info!!</legend>
+                
                 <div class="field">
                     {{ form.username.label }}
                     {{ form.username }}

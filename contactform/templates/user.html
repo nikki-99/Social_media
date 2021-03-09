@@ -3,6 +3,27 @@
 {% block content %}
 <ul>
 <h2 style="color: coral;">{{ posts.total }} - posts by {{ user.username }}</h2>
+
+{% if current_user.username == user.username %}
+<small><b>Last seen : active now</b></small>
+{% else %}
+<small><b>Last seen : {{ moment(user.last_seen).fromNow() }}</b></small>
+{% endif %}
+
+<p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+  {% if user == current_user %}
+
+  <p><a href="{{ url_for('account') }}">Edit your profile</a></p>
+
+  {% elif not current_user.is_following(user) %}
+  <p>
+  <a href="{{ url_for('follow', username = user.username) }}">Follow</a>
+  </p> 
+ {% else %}
+ <p>
+  <a href="{{ url_for('unfollow', username = user.username) }}">Unfollow</a>
+  </p> 
+   {% endif %}
 </ul>
     {% for post in posts.items %}
     <ul style="border: 2px rgb(255, 255, 255);">
@@ -16,19 +37,12 @@
      
         <div class="content">
           <div class="summary">
-            <a class="user" style="color: rgb(40, 102, 102);" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
-              {{ post.author.username }}
-            </a> 
-            <div class="date">
-              <small style="color: black;">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
+          
           </div>
           <div class="extra text">
             <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
-            <p style="font-style: italic;">{{ post.content }}</p>
-          </div>
-         
-        </div>
+            <!-- <p style="font-style: italic;">{{ post.content }}</p> -->
+          
       </ul>
           
     {% endfor %}

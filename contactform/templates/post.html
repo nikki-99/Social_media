@@ -2,7 +2,10 @@
 {% block content %}
 
 <div class="ui feed">
-    <div class="event">
+    <div class="event" >
+
+      
+
       <div class="label">
         <img class="ui small circular image" src="{{ url_for('static', filename = 'profile/' + post.author.image_file) }}">
       </div>
@@ -11,23 +14,70 @@
           <a class="user" style="color: darkblue;" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
             {{ post.author.username }}
           </a> 
-          <div class="date">
-            <small style="color: black;">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-          </div>
-          {% if post.author == current_user %}
-          <div>
-              
-              <a class="ui positive basic button" href="{{ url_for('post_update',post_id = post.id) }}">Update</a>
-              <button class="ui negative basic button" href="#" onclick="return renderModal()">Delete</button>
-  
-            </div>
-          {% endif %}
+          
+         
         </div>
         <div class="extra text">
           <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: darkred;">{{ post.title }}</a></h3>
+          <!-- <div class="date"> -->
+         <p>  <small style="color: black;">{{ moment(post.date_posted).format("MMMM Do, YY") }}</small>
+          <!-- </div> --></p> 
           <p style="font-style: italic;">{{ post.content }}</p>
+        
+         </p> 
+
+
+
+      {% if post.author == current_user %}
+      <div>
+          
+          <a class="ui mini positive basic button" href="{{ url_for('post_update',post_id = post.id) }}">Update</a>
+          <button class="ui mini negative basic button" href="#" onclick="return renderModal()">Delete</button>
+
         </div>
+        {% else %}
+        
+        </div>
+     
+  <div>
+  
+        <a class="ui mini positive basic button" href="{{ url_for('post_comment', post_id = post.id) }}" ><i class="reply icon"></i></a>
       </div>
+        {% endif %}
+        <div class="meta">
+          <a class="like">
+            <i class="like icon"></i> 3 Likes
+          </a>
+      
+        {% if post.comments %}
+        
+            <h4>Comments</h4>
+            <p>
+            {% for comment in post.comments %}
+                <p style="color: rgb(12, 12, 59);">"{{ comment.body }}" ----  <a class="user" style="color: rgb(167, 12, 84);" href="{{ url_for('user_posts_info',username = comment.commented_user ) }}">{{ comment.commented_user }}</a></p>
+            {% endfor %}
+            </p>
+       
+        {% endif %}
+
+
+
+      </div>
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
       <div class="ui basic modal" >
         <div class="ui icon header">
           <i class="archive icon"></i>
@@ -35,7 +85,7 @@
         </div>
         <div class="content">
           <p>
-           Are you sure yiu want to delete your Post?
+           Are you sure you want to delete your Post?
           </p>
         </div>
         <div class="actions">

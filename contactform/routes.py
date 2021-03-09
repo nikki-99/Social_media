@@ -1,21 +1,24 @@
 from flask import render_template, flash, url_for, redirect, request, abort
 from contactform import app, db, bcrypt, mail
-from contactform.models import User, Post
+from contactform.models import User, Post,Comment
 import secrets
 import os
 from PIL import Image
 
-from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, EmptyForm
+from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, CommentForm
 from flask_login import login_user, current_user,login_required, logout_user
 from flask_mail import Message
+from datetime import datetime
 
 
-@app.route('/')
+
+
+    
 @app.route('/home')
 def home():
     page = request.args.get('page', 1, type= int)
 
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page = page, per_page=5)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page = page, per_page=7)
 
 
     return render_template('home.html',posts = posts)
@@ -117,6 +120,7 @@ def logout():
 
    
 @app.route('/post/<int:post_id>')
+@login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title = post.title, post =post) 
@@ -145,12 +149,14 @@ def post_update(post_id):
 
 
 @app.route('/user/<string:username>')
+@login_required
 def user_posts_info(username):
     page = request.args.get('page', 1, type= int)
     user = User.query.filter_by(username= username).first_or_404()
 
-    posts = Post.query.filter_by(author = user).order_by(Post.date_posted.desc()).paginate(page = page, per_page=3)
-    return render_template('user_posts.html',posts = posts, user = user)
+    posts = Post.query.filter_by(author = user).order_by(Post.date_posted.desc()).paginate(page = page, per_page=8)
+   
+    return render_template('user.html',posts = posts, user = user)
 
 
 
@@ -223,6 +229,11 @@ def post_delete(post_id):
     flash(f'Your post has been deleted', 'success')
     return redirect(url_for('home'))
 
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 
 
@@ -231,16 +242,52 @@ def post_delete(post_id):
 
 
 
+@app.route('/follow/<username>', methods=['GET','POST'])
+@login_required
+def follow(username):
+   
+    user = User.query.filter_by(username=username).first()
+   
+
+    current_user.follow(user)
+    db.session.commit()
+    flash('You are following {}!'.format(username))
+    return redirect(url_for('user_posts_info', username=username))
+    
+
+        
+@app.route('/unfollow/<username>', methods=['GET','POST'])
+@login_required
+def unfollow(username):
+    
+    user = User.query.filter_by(username=username).first()
+    
+    current_user.unfollow(user)
+    db.session.commit()
+    flash('You are not following {}.'.format(username))
+    return redirect(url_for('user_posts_info', username=username))
 
 
 
 
-
-
-
-
-
-
+    
+@app.route('/post/<int:post_id>/comment', methods = ['GET','POST'])
+@login_required
+def post_comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    form = CommentForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            if form.commented_user.data != current_user.username:
+                flash(f'Please enter your own username')
+            else:    
+            
+                comment = Comment(commented_user = form.commented_user.data,body = form.body.data, article = post)
+                db.session.add(comment)
+                db.session.commit()
+                flash(f'Your comment has been posted!','success')
+                return redirect(url_for('post', post_id = post.id))
+    return render_template('post_comment.html', title = 'Comment Post', form = form, post_id = post_id)    
 
 
 

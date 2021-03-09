@@ -20,6 +20,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username= username.data).first()
         if user:
             raise ValidationError('That username is taken. Choose a different one')
+    
     def validate_email(self, email):
         user = User.query.filter_by(email= email.data).first()
         if user:
@@ -77,5 +78,7 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Reset Password')
 
 
-class EmptyForm(FlaskForm):
-    submit = SubmitField('Submit')
+class CommentForm(FlaskForm):
+    commented_user = StringField('Give your Name', validators=[DataRequired()])
+    body = TextAreaField('Reply', validators=[DataRequired()])
+    submit = SubmitField("Post")
