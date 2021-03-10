@@ -4,7 +4,7 @@ from social_media import db, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin
 from flask import current_app
-from social_media.search import add_to_index, remove_from_index, query_index
+
 
 
 
