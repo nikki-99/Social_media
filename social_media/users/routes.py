@@ -7,7 +7,7 @@ from social_media.models import User, Post
 from social_media.users.forms import RegistrationForm, LoginForm, UpdateAccountForm,ResetPasswordForm, ResetForm, DeleteForm
 from flask_login import login_user, current_user,login_required, logout_user
 from social_media.users.utils import picture_set, send_token_for_mail
-from datetime import datetime
+
 
 
 users = Blueprint('users',__name__)
@@ -51,11 +51,6 @@ def logout():
 
 
 
-@users.before_request
-def before_request():
-    if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow()
-        db.session.commit()
 
 
 

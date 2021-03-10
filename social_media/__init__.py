@@ -15,6 +15,7 @@ from social_media.config import Config
 
 
 
+
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -39,7 +40,7 @@ def create_app(config_class = Config):
     moment.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
-    
+   
     from social_media.users.routes import users
 
 

@@ -12,3 +12,5 @@ class Config:
     MAIL_USE_TLS = False
     
     MAIL_USE_SSL = True 
+
+    ELASTICSEARCH_URL = 'http://localhost:9200'

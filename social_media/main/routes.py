@@ -1,8 +1,10 @@
-from flask import render_template,  request, Blueprint
-
+from flask import render_template,  request, Blueprint, g,  current_app
+from flask_login import current_user, login_required
 from social_media.models import Post
 
 
+from datetime import datetime
+from social_media import  db
 
 
 
@@ -22,5 +24,17 @@ def home():
 @main.route('/about')
 def about():
     return render_template('about.html',title = 'About')    
+
+
+@main.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+      
+
+
+
+
 
 

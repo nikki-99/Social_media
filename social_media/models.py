@@ -4,6 +4,9 @@ from social_media import db, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin
 from flask import current_app
+from social_media.search import add_to_index, remove_from_index, query_index
+
+
 
 
 @login_manager.user_loader
@@ -16,10 +19,6 @@ db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
 db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
-# acnt_delete = db.Table('acnt_delete',
-# db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
-# db.Column('comment_id', db.Integer, db.ForeignKey('comment.id'))
-# )
 
 
 # UserMixin-a class for all 4 functions..like get _id, is_authenticated
@@ -89,6 +88,8 @@ class User(db.Model, UserMixin):
 
 
 class Post(db.Model):
+    __searchable__=['content']
+   
     
     id = db.Column(db.Integer, primary_key = True)
  
@@ -117,4 +118,3 @@ class Comment(db.Model):
     
 
 
-    
