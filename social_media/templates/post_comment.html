@@ -2,7 +2,7 @@
 {% block content %}
 <h1 style="color: rgb(99, 218, 99); text-align: center; ">Comment!!</h1>
 <div >
-        <form method="POST" class = "ui form" action="{{url_for('post_comment', post_id=post_id)}}">
+        <form method="POST" class = "ui form" action="{{url_for('comments.post_comment', post_id=post_id)}}">
             {{ form.hidden_tag() }}
             <fieldset style="width: 30%; position: inherit; left: 35%;box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);">
                 <img src="{{url_for('static', filename='/images/cmnt.svg')}}" style="height: 46%;

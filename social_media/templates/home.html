@@ -29,7 +29,7 @@ pointer-events: all;box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgb
      
         <!-- <div class="content">
           <div class="summary"> -->
-            <a class="user" style="color: rgb(3, 95, 95); font-size: 20px; position: absolute;" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
+            <a class="user" style="color: rgb(3, 95, 95); font-size: 20px; position: absolute;" href="{{ url_for('users.user_posts_info',username = post.author.username ) }}">
               <b>{{ post.author.username }}</b>
             </a> 
             <!-- <div class="date"> -->
@@ -37,7 +37,7 @@ pointer-events: all;box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgb
             <!-- </div>
           </div> -->
           <!-- <div class="extra text"> -->
-            <a style="position: absolute; top: 60%; left: 37%; color: black;" href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(16, 1, 54);"><b>{{ post.title }}</b></a>
+            <a style="position: absolute; top: 60%; left: 37%; color: black;" href="{{ url_for('posts.post', post_id = post.id) }}" style="color: rgb(16, 1, 54);"><b>{{ post.title }}</b></a>
             
           <!-- </div> -->
    
@@ -60,12 +60,12 @@ pointer-events: all;box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgb
 {% if page_num %}
 {% if posts.page == page_num %}
 
-<a href="{{ url_for('home',page = page_num) }}"><button class="ui green button">
+<a href="{{ url_for('main.home',page = page_num) }}"><button class="ui green button">
   {{ page_num }}
 </button>
 </a>
 {% else %}
-<a href="{{ url_for('home',page = page_num) }}"><button class="ui blue basic button">
+<a href="{{ url_for('main.home',page = page_num) }}"><button class="ui blue basic button">
   {{ page_num }}
 </button>
 </a>

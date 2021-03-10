@@ -11,14 +11,14 @@
       </div>
       <div class="content">
         <div class="summary">
-          <a class="user" style="color: darkblue;" href="{{ url_for('user_posts_info',username = post.author.username ) }}">
+          <a class="user" style="color: darkblue;" href="{{ url_for('users.user_posts_info',username = post.author.username ) }}">
             {{ post.author.username }}
           </a> 
           
          
         </div>
         <div class="extra text">
-          <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: darkred;">{{ post.title }}</a></h3>
+          <h3><a  href="{{ url_for('posts.post', post_id = post.id) }}" style="color: darkred;">{{ post.title }}</a></h3>
           <!-- <div class="date"> -->
          <p>  <small style="color: black;">{{ moment(post.date_posted).format("MMMM Do, YY") }}</small>
           <!-- </div> --></p> 
@@ -31,7 +31,7 @@
       {% if post.author == current_user %}
       <div>
           
-          <a class="ui mini positive basic button" href="{{ url_for('post_update',post_id = post.id) }}">Update</a>
+          <a class="ui mini positive basic button" href="{{ url_for('posts.post_update',post_id = post.id) }}">Update</a>
           <button class="ui mini negative basic button" href="#" onclick="return renderModal()">Delete</button>
 
         </div>
@@ -41,7 +41,7 @@
      
   <div>
   
-        <a class="ui mini positive basic button" href="{{ url_for('post_comment', post_id = post.id) }}" ><i class="reply icon"></i></a>
+        <a class="ui mini positive basic button" href="{{ url_for('comments.post_comment', post_id = post.id) }}" ><i class="reply icon"></i></a>
       </div>
         {% endif %}
         <div class="meta">
@@ -54,7 +54,7 @@
             <h4>Comments</h4>
             <p>
             {% for comment in post.comments %}
-                <p style="color: rgb(12, 12, 59);">"{{ comment.body }}" ----  <a class="user" style="color: rgb(167, 12, 84);" href="{{ url_for('user_posts_info',username = comment.commented_user ) }}">{{ comment.commented_user }}</a></p>
+                <p style="color: rgb(12, 12, 59);">"{{ comment.body }}" ----  <a class="user" style="color: rgb(167, 12, 84);" href="{{ url_for('users.user_posts_info',username = comment.commented_user ) }}">{{ comment.commented_user }}</a></p>
             {% endfor %}
             </p>
        
@@ -90,7 +90,7 @@
         </div>
         <div class="actions">
       
-          <form action="{{ url_for('post_delete', post_id = post.id) }}" method="POST">
+          <form action="{{ url_for('posts.post_delete', post_id = post.id) }}" method="POST">
             <div class="ui red basic cancel inverted button">
               <i class="remove icon"></i>
               No

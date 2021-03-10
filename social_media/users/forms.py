@@ -1,3 +1,4 @@
+
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
@@ -62,12 +63,6 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Choose a different one')
 
 
-class PostForm(FlaskForm):
-    title = StringField('Title',validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Post')
-
-
 class ResetForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(), Email()])
     
@@ -83,11 +78,6 @@ class ResetPasswordForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset')
 
-
-class CommentForm(FlaskForm):
-    commented_user = StringField('Give your Name', validators=[DataRequired()])
-    body = TextAreaField('Reply', validators=[DataRequired()])
-    submit = SubmitField("Post")
 
 class DeleteForm(FlaskForm):
     delete = SubmitField('Delete')    

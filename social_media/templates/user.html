@@ -13,15 +13,15 @@
 <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
   {% if user == current_user %}
 
-  <p><a href="{{ url_for('account') }}">Edit your profile</a></p>
+  <p><a href="{{ url_for('users.account') }}">Edit your profile</a></p>
 
   {% elif not current_user.is_following(user) %}
   <p>
-  <a href="{{ url_for('follow', username = user.username) }}">Follow</a>
+  <a href="{{ url_for('users.follow', username = user.username) }}">Follow</a>
   </p> 
  {% else %}
  <p>
-  <a href="{{ url_for('unfollow', username = user.username) }}">Unfollow</a>
+  <a href="{{ url_for('users.unfollow', username = user.username) }}">Unfollow</a>
   </p> 
    {% endif %}
 </ul>
@@ -40,7 +40,7 @@
           
           </div>
           <div class="extra text">
-            <h3><a  href="{{ url_for('post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
+            <h3><a  href="{{ url_for('posts.post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
             <!-- <p style="font-style: italic;">{{ post.content }}</p> -->
           
       </ul>
@@ -50,12 +50,12 @@
 {% if page_num %}
 {% if posts.page == page_num %}
 
-<a href="{{ url_for('user_posts_info', username = user.username, page = page_num) }}"><button class="ui blue basic button">
+<a href="{{ url_for('users.user_posts_info', username = user.username, page = page_num) }}"><button class="ui blue basic button">
   {{ page_num }}
 </button>
 </a>
 {% else %}
-<a href="{{ url_for('user_posts_info', username = user.username, page = page_num) }}"><button class="ui green basic button">
+<a href="{{ url_for('users.user_posts_info', username = user.username, page = page_num) }}"><button class="ui green basic button">
   {{ page_num }}
 </button>
 </a>

@@ -1,4 +1,4 @@
-import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -8,38 +8,52 @@ from flask_migrate import Migrate
 
 from flask_admin.contrib.sqla import ModelView
 from flask_moment import Moment
-from elasticsearch import Elasticsearch
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY']='hard to guess'
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+from social_media.config import Config
 
 
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+
+
+
+
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
 login_manager.login_message_category =  'notice'
-migrate = Migrate(app, db)
-moment = Moment(app)
+migrate = Migrate()
+moment = Moment()
 
-
-
-   
-
-
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD']= os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True 
-
-mail = Mail(app)
+mail = Mail()
 
 
 
 
-from social_media import routes
+def create_app(config_class = Config):
+    
+    app = Flask(__name__)
+
+    app.config.from_object(Config)
+    db.init_app(app)
+    bcrypt.init_app(app)
+    migrate.init_app(app, db)
+    moment.init_app(app)
+    mail.init_app(app)
+    login_manager.init_app(app)
+    
+    from social_media.users.routes import users
+
+
+    from social_media.post.routes import posts
+
+    from social_media.comment.routes import comments
+    from social_media.main.routes import main
+    from social_media.errors.handlers import errors
+
+    app.register_blueprint(main)
+    app.register_blueprint(users)
+    app.register_blueprint(posts)
+    app.register_blueprint(comments)
+    app.register_blueprint(errors)
+
+    return app
+
