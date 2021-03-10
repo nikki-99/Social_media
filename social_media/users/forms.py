@@ -80,4 +80,7 @@ class ResetPasswordForm(FlaskForm):
 
 
 class DeleteForm(FlaskForm):
-    delete = SubmitField('Delete')    
+    delete = SubmitField('Delete')  
+
+
+                         

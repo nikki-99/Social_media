@@ -165,3 +165,5 @@ def reset_by_token(token):
         return redirect(url_for('users.login')) 
     return render_template('reset_by_token.html', title = 'Reset Password', form = form)
    
+
+
