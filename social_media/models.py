@@ -1,6 +1,6 @@
 
 from datetime import datetime, timedelta
-from contactform import db, login_manager, app
+from social_media import db, login_manager, app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin
 

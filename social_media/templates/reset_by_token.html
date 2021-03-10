@@ -1,12 +1,17 @@
 
     {% extends 'base.html' %}
     {% block content %}
+    <h1 style="color: darkgreen; text-align: center; ">Reset Password</h1>
         <div class="content-section">
             <form method="POST" action="" class="ui form">
                 {{ form.hidden_tag() }}
                 
-                <fieldset>
-                    <legend>Reset Password</legend>
+                <fieldset style="width: 30%; position: inherit; left: 35%; box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);">
+                    <img src="{{url_for('static', filename='/images/back.svg')}}" style="height: 45%;
+                    width: 23%;
+                    position: absolute;
+                    left: 68%;
+                    top: 63%;" />
                     <div class="field">
                        
                         {{ form.password.label }}
@@ -47,9 +52,10 @@
                         
                   
                 </div>
-           <div>      
+           <div> 
+               <br><br>     
 
-          <button class="ui positive basic button" type="submit">{{ form.submit }}</button>
+          <button class="ui mini blue button" type="submit">{{ form.submit }}</button>
       </div>
       </fieldset>
       

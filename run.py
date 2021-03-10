@@ -1,6 +1,6 @@
 
 
-from contactform import app
+from social_media import app
 
 
 if __name__ == '__main__':

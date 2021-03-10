@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from contactform.models import User
+from social_media.models import User
 from flask_login import current_user
 
 class RegistrationForm(FlaskForm):
@@ -32,6 +32,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+    
+    def validate_email(self, email):
+        user = User.query.filter_by(email= email.data).first()
+        if user is None:
+            raise ValidationError('You are not a registered user. You must register first')
+
 
 
 class UpdateAccountForm(FlaskForm):
@@ -75,7 +81,7 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Reset')
 
 
 class CommentForm(FlaskForm):

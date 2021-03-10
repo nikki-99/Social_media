@@ -1,11 +1,11 @@
 from flask import render_template, flash, url_for, redirect, request, abort
-from contactform import app, db, bcrypt, mail
-from contactform.models import User, Post,Comment
+from social_media import app, db, bcrypt, mail
+from social_media.models import User, Post,Comment
 import secrets
 import os
 from PIL import Image
 
-from contactform.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, CommentForm, DeleteForm
+from social_media.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm,ResetPasswordForm, ResetForm, CommentForm, DeleteForm
 from flask_login import login_user, current_user,login_required, logout_user
 from flask_mail import Message
 from datetime import datetime
@@ -53,10 +53,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
+   
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             return redirect(url_for('home'))
         else:    
+            
             flash(f'Login Unsuccessful. Please check email or password','error')
     return render_template('login.html',title = 'Login', form = form)        
 
@@ -152,7 +154,9 @@ def post_update(post_id):
 @login_required
 def user_posts_info(username):
     page = request.args.get('page', 1, type= int)
-    user = User.query.filter_by(username= username).first_or_404()
+    user = User.query.filter_by(username= username).first()
+    if user is None:
+        return render_template('403.html'), 403
 
     posts = Post.query.filter_by(author = user).order_by(Post.date_posted.desc()).paginate(page = page, per_page=8)
    
@@ -167,7 +171,12 @@ def page_not_found(e):
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template('500.html'),500    
+    return render_template('500.html'),500  
+
+
+@app.errorhandler(403)
+def internal_server_error(e):
+    return render_template('403.html'),403     
 
 
 # external -- for getting absolute url not relative 

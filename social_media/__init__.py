@@ -42,4 +42,4 @@ mail = Mail(app)
 
 
 
-from contactform import routes
+from social_media import routes
