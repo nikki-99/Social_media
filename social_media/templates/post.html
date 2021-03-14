@@ -22,9 +22,13 @@
           <!-- <div class="date"> -->
          <p>  <small style="color: black;">{{ moment(post.date_posted).format("MMMM Do, YY") }}</small>
           <!-- </div> --></p> 
-          <p style="font-style: italic;">{{ post.content }}</p>
+         <div class="text">
+          {{ post.content }}
+
+         </div>
+         
         
-         </p> 
+
 
 
 
@@ -41,22 +45,36 @@
      
   <div>
   
-        <a class="ui mini positive basic button" href="{{ url_for('comments.post_comment', post_id = post.id) }}" ><i class="reply icon"></i></a>
+        <a  style="margin-top: 1%;" class="ui mini positive basic button" href="{{ url_for('comments.post_comment', post_id = post.id) }}" ><i class="fas fa-comments"></i></a>
       </div>
         {% endif %}
-        <div class="meta">
-          <a class="like">
-            <i class="like icon"></i> 3 Likes
-          </a>
+       
       
         {% if post.comments %}
         
             <h4>Comments</h4>
-            <p>
-            {% for comment in post.comments %}
-                <p style="color: rgb(12, 12, 59);">"{{ comment.body }}" ----  <a class="user" style="color: rgb(167, 12, 84);" href="{{ url_for('users.user_posts_info',username = comment.commented_user ) }}">{{ comment.commented_user }}</a></p>
-            {% endfor %}
-            </p>
+           
+            
+            <div class="ui comments">
+
+              {% for comment in post.comments %}
+              <div class="comment">
+            
+                <a class="avatar">
+                  <img src="{{ url_for('static', filename = 'profile/' + 'default.jpg') }}">
+                </a>
+                
+    
+                <div class="content">
+                  
+                  <a class="author" href="{{ url_for('users.user_posts_info',username = comment.commented_user ) }}" style="color: rgb(167, 12, 84);">{{ comment.commented_user }}</a>
+                  <div class="text">
+                    {{ comment.body }}
+                  </div>
+                
+                  </div>
+                  {% endfor %}
+                  </div>
        
         {% endif %}
 

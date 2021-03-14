@@ -36,7 +36,7 @@ def post_comment(post_id):
             if form.commented_user.data != current_user.username:
                 flash(f'Please enter your own username')
             else:    
-            
+                
                 comment = Comment(commented_user = form.commented_user.data,body = form.body.data, article = post)
                 db.session.add(comment)
                 db.session.commit()

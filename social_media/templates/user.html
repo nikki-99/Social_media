@@ -2,7 +2,7 @@
 
 {% block content %}
 <ul>
-<h2 style="color: coral;">{{ posts.total }} - posts by {{ user.username }}</h2>
+<h3 style="color: coral;">{{ posts.total }} - posts by  {{ user.username }}</h3>
 
 {% if current_user.username == user.username %}
 <small><b>Last seen : active now</b></small>
@@ -40,7 +40,7 @@
           
           </div>
           <div class="extra text">
-            <h3><a  href="{{ url_for('posts.post', post_id = post.id) }}" style="color: rgb(233, 88, 117);">{{ post.title }}</a></h3>
+            <h4><a  href="{{ url_for('posts.post', post_id = post.id) }}" style="color: rgb(138, 11, 36);">{{ post.title }}</a></h4>
             <!-- <p style="font-style: italic;">{{ post.content }}</p> -->
           
       </ul>
