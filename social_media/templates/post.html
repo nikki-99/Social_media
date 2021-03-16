@@ -66,14 +66,21 @@
                 
     
                 <div class="content">
+
+                  
                   
                   <a class="author" href="{{ url_for('users.user_posts_info',username = comment.commented_user ) }}" style="color: rgb(167, 12, 84);">{{ comment.commented_user }}</a>
+                 <small style="color: rgb(255, 17, 17);">----{{ moment(comment.timestamp).fromNow() }}</small>
                   <div class="text">
                     {{ comment.body }}
+                  
                   </div>
                 
                   </div>
                   {% endfor %}
+
+
+                 
                   </div>
        
         {% endif %}

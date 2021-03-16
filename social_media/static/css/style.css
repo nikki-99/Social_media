@@ -1,6 +1,6 @@
   
 body {
-    background: #fafafa;
+    background: linear-gradient(to right top, #e4ebea, #e0f6fa);
     color: #333333;
     
   }
@@ -191,4 +191,91 @@ transform: translate(-50%);
 }
 
 
-  
+.pic2{
+    
+    margin-top: 3%;
+    margin-left: 45%;
+    background: none;
+
+}
+#hand{
+    animation: hand 1s ease-in-out infinite alternate;
+    transform-origin:inherit;
+    transform-box: fill-box;
+}
+@keyframes hand{
+    from{
+        transform: rotateZ(-2deg)
+
+    }
+    to{
+
+        transform: rotateZ(10deg)
+    }
+}
+#pink{
+    animation: pink 1s ease-in-out infinite alternate;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+
+
+
+#yellow{
+    animation: jump 2s infinite alternate ease-in-out;
+        
+    }
+    @keyframes jump{
+       0%{
+           transform: translateY(100px);
+       }
+       100%{
+          transform: translateY(-30px);
+       }
+     
+    }
+    #green{
+        animation: jump1 2s infinite alternate ease-in-out;
+            
+        }
+        @keyframes jump1{
+           0%{
+               transform: translateY(60px);
+           }
+           100%{
+              transform: translateY(-0px);
+           }
+         
+        }
+    
+        #pink{
+            animation: jump2 2s infinite alternate ease-in-out;
+                
+            }
+            @keyframes jump2{
+               0%{
+                   transform: translateY(-100px);
+               }
+               100%{
+                  transform: translateY(110px);
+               }
+             
+            }
+
+    #hand{
+        transform-origin: top;
+        transform-box: fill-box;
+        
+        animation: swing 2s infinite ease-in-out alternate;
+    }
+    @keyframes swing{
+        0%{
+            transform: rotate(-8deg);
+        }
+        100%{
+            transform: rotate(20deg);
+        }
+    }
+
+
