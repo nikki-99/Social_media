@@ -35,6 +35,8 @@ def new_post():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title = post.title, post =post) 
+
+ 
     
 @posts.route('/post/<int:post_id>/update', methods = ['GET','POST'])
 @login_required
@@ -67,3 +69,7 @@ def post_delete(post_id):
     db.session.commit()    
     flash(f'Your post has been deleted', 'success')
     return redirect(url_for('main.home'))
+
+
+
+

@@ -4,7 +4,7 @@ from social_media import  db, bcrypt
 from social_media.models import User, Post
 
 
-from social_media.users.forms import RegistrationForm, LoginForm, UpdateAccountForm,ResetPasswordForm, ResetForm, DeleteForm
+from social_media.users.forms import RegistrationForm, LoginForm, UpdateAccountForm,ResetPasswordForm, ResetForm, DeleteForm, SearchForm
 from flask_login import login_user, current_user,login_required, logout_user
 from social_media.users.utils import picture_set, send_token_for_mail
 
@@ -165,5 +165,6 @@ def reset_by_token(token):
         return redirect(url_for('users.login')) 
     return render_template('reset_by_token.html', title = 'Reset Password', form = form)
    
+
 
 

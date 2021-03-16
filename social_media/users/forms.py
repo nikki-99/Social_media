@@ -83,4 +83,5 @@ class DeleteForm(FlaskForm):
     delete = SubmitField('Delete')  
 
 
-                         
+class SearchForm(FlaskForm):
+    search = StringField(' ')                         
