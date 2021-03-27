@@ -67,7 +67,7 @@
           </div>
           <div class="content">
             <div class="summary">
-              <a class="user" href="{{ url_for('users.user_posts_info',username = post.author.username ) }}" ">
+              <a class="user" href="{{ url_for('users.user_posts_info',username = post.author.username ) }}" >
                <h3 style="color: darkblue;"> {{ post.author.username }}</h3>
               </a>   - added a post.
               <div class="date" style="color: darkslategrey;">
@@ -76,7 +76,7 @@
               </div>
             </div>
             <div class="extra text">
-             Title - <a href="{{ url_for('posts.post', post_id = post.id) }}" style="color: brown;"> {{ post.title }}</a> 
+             Title - <a href="{{ url_for('posts.post', post_id = post.id) }}" style="color: brown;" target="_blank"> {{ post.title }}</a> 
             </div>
           </div>
         </div>
